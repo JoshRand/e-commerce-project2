@@ -1,33 +1,30 @@
+import jwt from 'express-jwt';
 import express from 'express';
+import jsonwebtoken from 'jsonwebtoken';
 import bodyParser from 'body-parser';
 import UserDao from './dao/UserDao.js';
-import session from 'express-session';
 import cookieParser from 'cookie-parser';
+
 var app = express();
+const sKey = 'shhhhhhared-secret';
 var userDao = new UserDao();
 var userList = [];
 
-app.use(cookieParser());
-app.use(session({
-    key: 'user_sid',
-    secret: 'somerandonstuffs',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        expires: 600000
-    }
-}));
-app.use((req, res, next) => {
-    if (req.cookies.user_sid && !req.session.user) {
-        res.clearCookie('user_sid');        
-    }
-    next();
-});
 
-app.get('/users', function (req, res) {
+app.get('/users', jwt({ 
+    secret: sKey , algorithms: ['HS256'] }) ,function (req, res) {
     
     userDao.getUsers().then(function(rows) {
         res.send(rows);
+
+    }).catch((err) => setImmediate(() => { throw err; }));
+
+})
+app.get('/user', jwt({ 
+    secret: sKey , algorithms: ['HS256'] }) ,function (req, res) {
+    userDao.findById(req.user.userId).then(function(user) {
+        console.log(req.user.userId);
+        res.send(user);
 
     }).catch((err) => setImmediate(() => { throw err; }));
 
@@ -44,13 +41,19 @@ app.patch('/user',function (req, res)
     res.send(req.body);
 })
 
-app.post('/login')
+app.post('/login', function (req, res)
+{   
+    userDao.findUser(req.body.userName, req.body.password).then(function(user){
+        console.log(user[0].userId);
+        var token = jsonwebtoken.sign({userId: user[0].userId}, sKey, {expiresIn: '2h'});
+        res.json({token,"user":user[0]});
+    }).catch((err) => setImmediate(() => { throw err; }));
+
+})
 
 var server = app.listen(8081, function () {
    var host = server.address().address
    var port = server.address().port
    
-   console.log("Example app listening at http://%s:%s", host, port)
+   console.log("listening at http://%s:%s", host, port)
 })
-
-console.log("hi");

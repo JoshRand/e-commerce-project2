@@ -26,6 +26,44 @@ class UserDao
     {
         console.log("heyya");
     }
+
+    findUser(userName, password)
+    {
+        return new Promise((resolve,reject)=>{
+            try {
+                con.query('select * from users where userName=\''+userName+'\' and password=\''+password+'\';',(err,user) => {
+                    if(err)
+                        console.log("User Doesn't Exist");
+                    console.log("data successfully found from db:");
+                    resolve(user);
+                });
+            } catch (error) {
+                
+            }
+            
+
+     });
+    }
+
+    findById(userId)
+    {
+        return new Promise((resolve,reject)=>{
+            try {
+                con.query('select * from users where userId=\''+userId+'\';',(err,user) => {
+                    if(err)
+                        console.log("User Doesn't Exist");
+                    console.log("data successfully found from db:");
+                    resolve(user);
+                });
+            } catch (error) {
+                
+            }
+            
+
+     });
+    }
+
+
     getUsers()
     {
        
@@ -34,7 +72,7 @@ class UserDao
                 con.query('select * from users',(err,rows) => {
                     // if(err)
                     //     throw err;
-                    console.log("data from db:");
+                    console.log("data successfully found from db:");
                    resolve(rows);
                 });
             } catch (error) {
@@ -64,7 +102,7 @@ class UserDao
     updateUser(userId, userName, password, repassword, role){
         try {
             con.query('select * from users where userId=\''+userId+'\';',(err,rows) => {
-                console.log("data from db:");
+                console.log("data successfully found from db:");
                 var uname;
                 var pass;
                 var rol;
