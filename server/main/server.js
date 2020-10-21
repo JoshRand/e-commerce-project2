@@ -13,14 +13,25 @@ var userList = [];
 
 app.get('/users', jwt({ 
     secret: sKey , algorithms: ['HS256'] }) ,function (req, res) {
+    userDao.findById(req.user.userId).then(function(user){
+        if(user[0].role == "admin")
+        {
+            userDao.getUsers().then(function(rows) {
+        
+                res.status(200).send(rows);
     
-    userDao.getUsers().then(function(rows) {
-        res.send(rows);
+            }).catch((err) => setImmediate(() => { throw err; }));
+        }
+        else
+        {
+            res.status(400).send("Not an admin");
+        }
 
-    }).catch((err) => setImmediate(() => { throw err; }));
+    })
+        
 
 })
-app.get('/user', jwt({ 
+app.get('/user', jwt({
     secret: sKey , algorithms: ['HS256'] }) ,function (req, res) {
     userDao.findById(req.user.userId).then(function(user) {
         console.log(req.user.userId);
@@ -35,11 +46,17 @@ app.post('/user',function (req, res) {
     userDao.addUser(req.body.username, req.body.password, req.body.role);
     res.send(req.body)
   })
-app.patch('/user',function (req, res)
-{   
-    userDao.updateUser(req.body.userId, req.body.userName, req.body.password,req.body.repassword, req.body.role);
-    res.send(req.body);
+app.patch('/user',jwt({
+    secret: sKey , algorithms: ['HS256'] }) ,function (req, res) {
+    userDao.findById(req.user.userId).then(function(user) {
+        userDao.updateUser(req.body.userId, req.body.userName, req.body.password,req.body.repassword, req.body.role);
+        res.send(req.body);
+
+    }).catch((err) => setImmediate(() => { throw err; }));
+
 })
+    
+
 
 app.post('/login', function (req, res)
 {   

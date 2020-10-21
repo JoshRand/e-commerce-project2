@@ -118,6 +118,7 @@ class UserDao
                 }
                 else
                     pass = password;
+                //if (role ==="user")
                 if(role === "" || role === rows[0].role)
                 {
                     rol = rows[0].role;
