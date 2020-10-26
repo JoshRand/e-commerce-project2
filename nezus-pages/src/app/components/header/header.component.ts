@@ -8,7 +8,7 @@ import { User } from 'src/app/models/User';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  user:User = localStorage.getItem('user');
+  user:User = JSON.parse(localStorage.getItem('user'));
   name:string = this.user.userName;
   firstButton:string = "Home";
   secondButton:string = "Contact";
@@ -32,15 +32,9 @@ export class HeaderComponent implements OnInit {
   }
   onLogin()
   {
+   
     console.log("Login clicked");
-    this.userService.login("Mark@gmail.com","Gooder").subscribe(json => {
-      console.log(json.token);
-      this.user = json.user;
-      this.name = this.user.userName;
-      console.log(this.user);
-      localStorage.setItem('user', JSON.stringify(this.user));
-      localStorage.setItem('role', this.user.role);
-      localStorage.setItem('token', json.token);
-    });
+    localStorage.setItem("pageCondition","login");
+    window.location.reload();
   }
 }

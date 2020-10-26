@@ -11,6 +11,7 @@ const token = localStorage.getItem("token");
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserService {
   
   constructor(private http: HttpClient) { }
@@ -49,9 +50,9 @@ export class UserService {
     return this.http.get<User>(USER_API_REQUEST_ROUTE, config);
   }
 
-  login(userName, password):Observable<JSON>
+  login(userName, password):Observable<any>
   {
-
+   
     const data = {
       "userName":userName,
       "password":password
@@ -59,7 +60,7 @@ export class UserService {
      const headers = new HttpHeaders()
            .set('Content-Type', 'application/json');
      const config = {headers,data};
-     return this.http.post<JSON>(LOGIN_API_REQUEST_ROUTE,config);
+     return this.http.post<any>(LOGIN_API_REQUEST_ROUTE,config);
   }
 
 }

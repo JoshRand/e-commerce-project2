@@ -1,0 +1,15 @@
+<!-- <form  [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value,$event)">
+			
+    <h4  ><u>Name :</u></h4> 
+    <input id="uname" class="form-control" type="text" placeholder="Enter Username" formControlName="uname" required/>
+
+    <h4 ><u>Password :</u></h4> 
+    <input id="pass" class="form-control" type="password" placeholder="Enter Password" formControlName="pass" required/>
+    <br><br>
+    <button type="button" (click)="onSubmit(loginForm.value,$event)" class="submit" >Submit</button>
+</form> -->
+<form [formGroup]="loginForm">
+    <input formControlName="uname" type="text" placeholder="Enter Username">
+    <input formControlName="pass" type="password" placeholder="Enter Password">
+    <input type="button" (click)="onSubmit()" value="Submit">
+  </form>

@@ -1,0 +1,11 @@
+
+<app-header></app-header>
+    <div *ngIf="getUsersCondition">
+      <app-users ></app-users>
+    </div>
+    <div *ngIf="loginPageCondition">
+        <app-login></app-login>
+      </div>
+    <div *ngIf="homePageCondition">
+    <app-home></app-home>
+    </div>
