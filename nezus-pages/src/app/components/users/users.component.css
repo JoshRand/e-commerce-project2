@@ -1,0 +1,11 @@
+td{
+    background-color:lightblue;
+    text-align:center;
+    font-family: consolas;
+}
+button.del{
+    background-color: red;
+}
+table{
+    width:100vw;
+}

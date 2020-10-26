@@ -3,13 +3,39 @@ import express from 'express';
 import jsonwebtoken from 'jsonwebtoken';
 import bodyParser from 'body-parser';
 import UserDao from './dao/UserDao.js';
-import cookieParser from 'cookie-parser';
-
+import cors from 'cors';
 var app = express();
 const sKey = 'shhhhhhared-secret';
 var userDao = new UserDao();
 var userList = [];
+app.use(cors({
+    origin:'http://localhost:4200'
+  }));
+  
+app.use(bodyParser.json());
 
+app.post('/login', function (req, res)
+{   
+    console.log("hi");
+    console.log(req.body.data.userName);
+    console.log(JSON.stringify(req.body));
+    console.log(req.body.data.userName+ " " +req.body.data.password);
+    userDao.userLogin(req.body.data.userName, req.body.data.password).then(function(user){
+        console.log(user);
+        console.log(user);
+        if(user.length != 0)
+        {
+            console.log(user[0].userId);
+            var token = jsonwebtoken.sign({userId: user[0].userId}, sKey, {expiresIn: '2h'});
+            console.log(token);
+            res.json({token,"user":user[0]});
+        }else
+        {
+            res.status(400).send("");
+        }
+    }).catch((err) => setImmediate(() => { console.log(err); }));
+
+})
 
 app.get('/users', jwt({ 
     secret: sKey , algorithms: ['HS256'] }) ,function (req, res) {
@@ -41,9 +67,8 @@ app.get('/user', jwt({
 
 })
 
-app.use(bodyParser.json());
 app.post('/user',function (req, res) {
-    userDao.addUser(req.body.username, req.body.password, req.body.role);
+    userDao.addUser(req.body.userName, req.body.password, req.body.role);
     res.send(req.body)
   })
 app.patch('/user',jwt({
@@ -56,17 +81,33 @@ app.patch('/user',jwt({
 
 })
     
-
-
-app.post('/login', function (req, res)
-{   
-    userDao.findUser(req.body.userName, req.body.password).then(function(user){
-        console.log(user[0].userId);
-        var token = jsonwebtoken.sign({userId: user[0].userId}, sKey, {expiresIn: '2h'});
-        res.json({token,"user":user[0]});
+app.delete('/user',jwt({
+    secret: sKey , algorithms: ['HS256'] }) ,function (req, res) {
+        console.log("entering delete")
+        userDao.findById(req.user.userId).then(function(user){
+            if(user[0].role == "admin")
+            {
+                userDao.findById(req.body.deleteId).then(function(user){
+                    if(user[0].role == "admin")
+                    {
+                        res.status(400).send("Can't delete an Admin");
+                    }
+                    else 
+                    {
+                        userDao.deleteUser(req.body.deleteId);
+                         res.status(200).send("Deleted");
+                       
+                    }
+                    
+                 }).catch((err) => setImmediate(() => { throw err; }));
+            }
+            else
+            {
+                res.status(400).send("Not an admin");
+            }
     }).catch((err) => setImmediate(() => { throw err; }));
-
 })
+
 
 var server = app.listen(8081, function () {
    var host = server.address().address

@@ -27,7 +27,7 @@ class UserDao
         console.log("heyya");
     }
 
-    findUser(userName, password)
+    userLogin(userName, password)
     {
         return new Promise((resolve,reject)=>{
             try {
@@ -63,7 +63,6 @@ class UserDao
      });
     }
 
-
     getUsers()
     {
        
@@ -98,7 +97,19 @@ class UserDao
            
        }
     }
-
+ deleteUser(deleteId)
+    {
+        try {
+            con.query('delete from users where userId=\''+deleteId+'\';',(err,user) => {
+                if(err)
+                    console.log("User Doesn't Exist");
+                console.log("data successfully deleted from db:");
+                
+            });
+        } catch (error) {
+            
+        }
+    }
     updateUser(userId, userName, password, repassword, role){
         try {
             con.query('select * from users where userId=\''+userId+'\';',(err,rows) => {

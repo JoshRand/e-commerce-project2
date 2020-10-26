@@ -1,7 +1,13 @@
-<app-user-item *ngFor="let user of users" [user] = "user">
-    <li>{{user.userName}}</li>
 
-</app-user-item>
-
-
-<p>users!</p>
+<table>
+    <thead>
+        <tr><th>ID</th><th>ROLE</th><th>NAME</th></tr>
+    </thead>
+   
+            <tr *ngFor="let user of users" [user] = "user" >
+                <td>{{user.userId}}</td>
+                <td>{{user.role}}</td>
+                <td>{{user.userName}}</td>
+                <td><button class="del" (click)="deleteUser(user.userId)">DELETE</button></td>
+            </tr>
+</table>

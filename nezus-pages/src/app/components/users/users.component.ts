@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/User';
+import { UserService } from '../../services/user.service'
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -7,29 +8,18 @@ import { User } from '../../models/User';
 })
 export class UsersComponent implements OnInit {
   users:User[];
-  constructor() { }
+  
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.users = [
-      {
-        userId: 1,
-        userName: "momo@gmail.com",
-        password: "momo",
-        role: "admin"
-      },
-      {
-        userId: 2,
-        userName: "meme@gmail.com",
-        password: "momo",
-        role: "admin"
-      },
-      {
-        userId: 3,
-        userName: "mqmq@gmail.com",
-        password: "momo",
-        role: "admin"
-      }
-    ]
+     this.userService.getUsers().subscribe(users => {
+       this.users = users;
+     });
   }
 
+  deleteUser(userId)
+  {
+    console.log(userId);
+    this.userService.deleteUser(userId).subscribe();
+  }
 }
