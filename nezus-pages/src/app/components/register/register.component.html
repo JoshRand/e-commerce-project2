@@ -1,0 +1,31 @@
+<div>
+    <div *ngIf="registerType">
+        <h2>Register Here!</h2>
+        <form  [formGroup]="registerForm">
+                
+            <h4  ><u>Name :</u></h4> 
+            <input formControlName="uname" type="text" placeholder="Enter Username"  required/>
+        
+            <h4 ><u>Password :</u></h4> 
+            <input formControlName="pass" type="password" placeholder="Enter Password"  required/>
+            <br><br>
+            <button type="button" (click)="onSubmit()" class="submit" >Register</button>
+        </form>
+    </div>
+    <div *ngIf="!registerType">
+        <h2>ADMIN: Register User Here!</h2>
+        <form  [formGroup]="registerForm">
+                
+            <h4  ><u>Name :</u></h4> 
+            <input formControlName="uname" type="text" placeholder="Enter Username"  required/>
+        
+            <h4 ><u>Password :</u></h4> 
+            <input formControlName="pass" type="password" placeholder="Enter Password"  required/>
+            <br>
+            <br>
+            <input id="user" formControlName="rol" type="radio" value="user" required/><label for="user"> User</label><br><br>
+            <input id="admin" formControlName="rol" type="radio" value="admin" required/><label for="admin"> Admin</label><br><br>
+            <button type="button" (click)="onSubmit()" class="submit" >Register</button>
+        </form>
+    </div>
+</div>

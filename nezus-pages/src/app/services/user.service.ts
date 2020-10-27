@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { User } from '../models/User';
 import { Observable } from 'rxjs';
 
+const ADMIN_API_REQUEST_ROUTE = 'http://localhost:8081/user/admin';
 const USER_API_REQUEST_ROUTE = 'http://localhost:8081/user';
 const LOGIN_API_REQUEST_ROUTE = 'http://localhost:8081/login';
 const GET_USERS_API_REQUEST_ROUTE = 'http://localhost:8081/users';
@@ -62,6 +63,28 @@ export class UserService {
      const config = {headers,data};
      return this.http.post<any>(LOGIN_API_REQUEST_ROUTE,config);
   }
-
+  register(userName,password):Observable<any>
+  {
+    const data = {
+      "userName":userName,
+      "password":password
+    }
+     const headers = new HttpHeaders()
+           .set('Content-Type', 'application/json');
+     const config = {headers,data};
+     return this.http.post<any>(USER_API_REQUEST_ROUTE,config);
+  }
+  registerAdmin(userName,password,rol):Observable<any>
+  {
+    const data = {
+      "userName":userName,
+      "password":password,
+      "role":rol
+    }
+     const headers = new HttpHeaders()
+           .set('Content-Type', 'application/json');
+     const config = {headers,data};
+     return this.http.post<any>(ADMIN_API_REQUEST_ROUTE,config);
+  }
 }
   

@@ -40,8 +40,6 @@ class UserDao
             } catch (error) {
                 
             }
-            
-
      });
     }
 
@@ -80,6 +78,22 @@ class UserDao
             
 
      });
+    }
+    addUser(username,password){
+        var msg = 'insert users(username,password,role) value(\''+username+'\',\''+password+'\',\'user\')';
+       try {
+        con.query(msg,(err,rows) => {
+            
+            //     throw err;
+            if(err)
+                console.log("duplicate username or error");
+            else
+                console.log("added to db");
+         
+        });
+       } catch (error) {
+           
+       }
     }
     addUser(username,password,role){
         var msg = 'insert users(username,password,role) value(\''+username+'\',\''+password+'\',\''+role+'\')';

@@ -1,11 +1,22 @@
 
-<app-header></app-header>
-    <div *ngIf="getUsersCondition">
-      <app-users ></app-users>
+<div>
+  <app-header></app-header>
+  <div *ngIf="getUsersCondition">
+    <app-users ></app-users>
+  </div>
+  <div *ngIf="loginPageCondition">
+      <app-login></app-login>
     </div>
-    <div *ngIf="loginPageCondition">
-        <app-login></app-login>
-      </div>
-    <div *ngIf="homePageCondition">
-    <app-home></app-home>
-    </div>
+  <div *ngIf="homePageCondition">
+  <app-home></app-home>
+  </div>
+  <div *ngIf="registerPageCondition">
+    <app-register></app-register>
+  </div>
+  <div *ngIf="usersPageCondition">
+    <app-register></app-register>
+  </div>
+  <!-- <ng-template #msg>
+    <h2 >Please login to view HOME page</h2>
+  </ng-template> -->
+</div>

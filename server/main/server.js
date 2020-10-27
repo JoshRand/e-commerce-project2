@@ -54,8 +54,6 @@ app.get('/users', jwt({
         }
 
     })
-        
-
 })
 app.get('/user', jwt({
     secret: sKey , algorithms: ['HS256'] }) ,function (req, res) {
@@ -67,9 +65,13 @@ app.get('/user', jwt({
 
 })
 
+app.post('/user/admin',function (req, res) {
+    userDao.addUser(req.body.data.userName, req.body.data.password, req.body.data.role);
+    res.send(req.body);
+  })
 app.post('/user',function (req, res) {
-    userDao.addUser(req.body.userName, req.body.password, req.body.role);
-    res.send(req.body)
+    userDao.addUser(req.body.data.userName, req.body.data.password);
+    res.send();
   })
 app.patch('/user',jwt({
     secret: sKey , algorithms: ['HS256'] }) ,function (req, res) {
@@ -95,7 +97,7 @@ app.delete('/user',jwt({
                     else 
                     {
                         userDao.deleteUser(req.body.deleteId);
-                         res.status(200).send("Deleted");
+                        res.status(200).send("Deleted");
                        
                     }
                     
