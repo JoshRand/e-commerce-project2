@@ -1,5 +1,42 @@
-
 <div>
-    <h2>Welcome {{name}}</h2>
-    <button (click)="showDetails()">Show Details</button>
+  <h2>Welcome {{ name }}</h2>
+  <button class="show" (click)="onShowDetails()">Show Details</button>
+  <div *ngIf="toggleShowDetails">
+    <form [formGroup]="homeForm">
+      <table>
+        <thead>
+            <tr>
+              <th>ID</th>
+              <th>UserName</th>
+              <th>Password</th>
+              <th>RePassword</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          
+        <tr>
+          <td class="entry">
+            <input formControlName="userId" disabled />
+          </td>
+          <td class="entry">
+            <input  formControlName="userName"  />
+          </td>
+          <td class="entry">
+            <input formControlName="password"/>
+          </td>
+          <td class="entry">
+              <input formControlName="repassword" />
+            </td>
+          <td class="entry">
+              <input  formControlName="role" disabled />
+            </td>
+          <td>
+            <button type="button" (click)="onUpdate()" class="submit">
+              Update
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
 </div>

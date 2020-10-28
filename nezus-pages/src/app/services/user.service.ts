@@ -8,20 +8,20 @@ const ADMIN_API_REQUEST_ROUTE = 'http://localhost:8081/user/admin';
 const USER_API_REQUEST_ROUTE = 'http://localhost:8081/user';
 const LOGIN_API_REQUEST_ROUTE = 'http://localhost:8081/login';
 const GET_USERS_API_REQUEST_ROUTE = 'http://localhost:8081/users';
-const token = localStorage.getItem("token");
+
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserService {
-  
+  token:string;
   constructor(private http: HttpClient) { }
 
   getUsers():Observable<User[]> {
-    
+   this.token = localStorage.getItem("token");
     const headers = new HttpHeaders()
           .set('Authorization', 
-          'Bearer '+token)
+          'Bearer '+this.token)
           .set('Content-Type', 'application/json');
     const config = {headers};
 
@@ -29,31 +29,50 @@ export class UserService {
   }
 
   deleteUser(deleteId) {
+    this.token = localStorage.getItem("token");
    const body = {
      "deleteId":deleteId
    }
     const headers = new HttpHeaders()
           .set('Authorization', 
-          'Bearer '+token)
+          'Bearer '+this.token)
           .set('Content-Type', 'application/json');
     const config = {headers,body};
     return this.http.delete(USER_API_REQUEST_ROUTE,config);
   }
 
-  getUser():Observable<User> {
-    
+  getUser():Observable<any> {
+    this.token = localStorage.getItem("token");
     const headers = new HttpHeaders()
           .set('Authorization', 
-          'Bearer '+token)
+          'Bearer '+this.token)
           .set('Content-Type', 'application/json');
     const config = {headers};
 
-    return this.http.get<User>(USER_API_REQUEST_ROUTE, config);
+    return this.http.get<any>(USER_API_REQUEST_ROUTE, config);
+  }
+
+  updateUser(userName, password, repassword):Observable<User>
+  {
+
+    this.token = localStorage.getItem("token");
+    console.log(this.token);
+    const data = {
+      "userName":userName,
+      "password":password,
+      "repassword":repassword
+    }
+    const headers = new HttpHeaders()
+    .set('Authorization', 
+    'Bearer '+this.token)
+    .set('Content-Type', 'application/json');
+    const config = {headers,data};
+     return this.http.patch<User>(USER_API_REQUEST_ROUTE,data, config);
   }
 
   login(userName, password):Observable<any>
   {
-   
+    this.token = localStorage.getItem("token");
     const data = {
       "userName":userName,
       "password":password
@@ -65,6 +84,7 @@ export class UserService {
   }
   register(userName,password):Observable<any>
   {
+    this.token = localStorage.getItem("token");
     const data = {
       "userName":userName,
       "password":password
@@ -76,6 +96,7 @@ export class UserService {
   }
   registerAdmin(userName,password,rol):Observable<any>
   {
+    this.token = localStorage.getItem("token");
     const data = {
       "userName":userName,
       "password":password,

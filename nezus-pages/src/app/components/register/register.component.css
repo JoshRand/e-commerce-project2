@@ -3,21 +3,26 @@ button.submit {
     border-radius: 50%;
     width: 80px;
     height: 40px;
+    font-family: consolas;
+    font-weight: bold;
 }
 h2{
+    font-family: consolas;
     padding-left:10vw;
 }
 h4{
     color:tomato;
 }
 input{
+    font-family: consolas;
     height: 20px;
     text-align: center;
 }
 u{
+    font-family: consolas;
     text-align: left;
 }
 form{
-    
+    font-family: consolas;
     padding-left: 10vw;
 }

@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
       console.log(this.loginForm.value);
       console.log("submitted")
     this.userService.login(this.loginForm.value.uname,this.loginForm.value.pass).subscribe(json => {
-     
       console.log(json.token);
       this.user = json.user;
       localStorage.setItem('pageCondition','home');

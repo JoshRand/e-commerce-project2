@@ -4,8 +4,10 @@ td{
     font-family: consolas;
 }
 button.del{
+    font-family: consolas;
     background-color: red;
 }
 table{
+    font-family: consolas;
     width:100vw;
 }

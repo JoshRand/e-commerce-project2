@@ -75,14 +75,25 @@ app.post('/user',function (req, res) {
   })
 app.patch('/user',jwt({
     secret: sKey , algorithms: ['HS256'] }) ,function (req, res) {
+        console.log(req.user.userId, req.body.userName);
     userDao.findById(req.user.userId).then(function(user) {
-        userDao.updateUser(req.body.userId, req.body.userName, req.body.password,req.body.repassword, req.body.role);
-        res.send(req.body);
+        userDao.updateUser(req.user.userId, req.body.userName, req.body.password,req.body.repassword);
+        res.send(user);
 
     }).catch((err) => setImmediate(() => { throw err; }));
 
 })
-    
+app.patch('/user/admin',jwt({
+    secret: sKey , algorithms: ['HS256'] }) ,function (req, res) {
+        console.log(req.user.userId + req.body.userName);
+    // userDao.findById(req.user.userId).then(function(user) {
+       
+    //     userDao.updateUser(req.user.userId, req.body.userName, req.body.password,req.body.repassword, req.body.role);
+    //     res.send(user);
+
+    // }).catch((err) => setImmediate(() => { throw err; }));
+
+})
 app.delete('/user',jwt({
     secret: sKey , algorithms: ['HS256'] }) ,function (req, res) {
         console.log("entering delete")

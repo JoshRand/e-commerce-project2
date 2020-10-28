@@ -124,13 +124,12 @@ class UserDao
             
         }
     }
-    updateUser(userId, userName, password, repassword, role){
+    updateUser(userId, userName, password, repassword){
         try {
             con.query('select * from users where userId=\''+userId+'\';',(err,rows) => {
                 console.log("data successfully found from db:");
                 var uname;
                 var pass;
-                var rol;
                 if(userName === "" || userName === rows[0].userName)
                 {
                     uname = rows[0].userName;
@@ -143,17 +142,11 @@ class UserDao
                 }
                 else
                     pass = password;
-                //if (role ==="user")
-                if(role === "" || role === rows[0].role)
-                {
-                    rol = rows[0].role;
-                }
-                else
-                    rol = role;
+               
                 if(password === repassword)
                 {
                 
-                    var msg = 'update users set userName=\''+uname+'\', password=\''+pass+'\',role=\''+rol+'\' where userId=\''+userId+'\';';
+                    var msg = 'update users set userName=\''+uname+'\', password=\''+pass+'\' where userId=\''+userId+'\';';
                     con.query(msg,(err,rows) => {
                         if(err)
                             console.log("error updating user");

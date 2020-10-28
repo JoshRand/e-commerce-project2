@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   thirdButton:string = localStorage.getItem("tb");
   fourthButton:string = localStorage.getItem("fob");
   fifthButton:string = localStorage.getItem("fib");
-  constructor() {
+  constructor(private userService:UserService) {
     // firstButton = localStorage.getItem("fb");
     // secondButton = localStorage.getItem("sb");
     // thirdButton = localStorage.getItem("tb");
@@ -36,7 +36,11 @@ export class HeaderComponent implements OnInit {
       localStorage.setItem("fob","Login");
     }
     localStorage.setItem("fib","Users");
-   
+    //localStorage.clear();
+    if(!localStorage.getItem("loggedin") === null)
+    {
+      localStorage.setItem("pageCondition", "login");
+    }
    }
 
   ngOnInit(): void {
@@ -46,6 +50,8 @@ export class HeaderComponent implements OnInit {
     console.log("Home clicked");
     localStorage.setItem("pageCondition","home");
     window.location.reload();
+ 
+   
   }
   onContact()
   {

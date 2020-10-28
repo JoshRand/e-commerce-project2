@@ -1,9 +1,65 @@
-button{
+button.show{
+    box-shadow: 1px 1px teal;
+    font-family: consolas;
+    margin-left:10vw;
     background-color: lightyellow;
-    border-radius: 50%;
+    border-radius: 30%;
     width: 80px;
     height: 40px;
+    font-weight: bold;
+    
 }
-div{
+table{
+    
+    shadow: 5px 5px red;
+    font-family: consolas;
+    
+}
+button.submit {
+    
+    box-shadow: 1px 1px teal;
+    font-family: consolas;
+    background-color: red;
+    border-radius: 30%;
+    width: 80px;
+    height: 40px;
+    font-weight: bold;
+    
+}
+h2{
+    
+    font-family: consolas;
     padding-left:10vw;
+}
+h4{
+    color:tomato;
+}
+input{
+    
+    font-family: consolas;
+    height: 20px;
+    text-align: center;
+    width:8vw;
+}
+u{
+    text-align: left;
+}
+form{
+    text-shadow: 1px 1px white;
+    padding-left: 10vw;
+}
+td.entry{
+    box-shadow: 2px 2px teal;
+    border-radius: 10%;
+    background-color:lightblue;
+}
+h2{
+    text-align: center;
+    width: 30vw;
+    margin-left:10vw;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    box-shadow: 2px 2px teal;
+    border-radius: 10%;
+    background-color:lightblue;
 }
