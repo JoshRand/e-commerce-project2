@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   name:string = localStorage.getItem("userName");
   pass:string;
   toggleShowDetails: boolean = false;
+  updateFlag:boolean = false;
   public homeForm: FormGroup;
   userId:string;
   userName:string;
@@ -57,6 +58,41 @@ export class HomeComponent implements OnInit {
     this.toggleShowDetails = !this.toggleShowDetails;
   }
 
+  onDelete()
+  {
+    console.log(this.user.userId);
+    this.userService.deleteUser(this.user.userId).subscribe(data=>{
+     
+    },err=>{},()=>{ localStorage.clear();
+      window.location.reload();
+      localStorage.setItem("fb","Home");
+      localStorage.setItem("sb","Contact");
+      localStorage.setItem("tb","Register");
+      
+      console.log(localStorage.getItem("loggedin"));
+      if(localStorage.getItem("loggedin")==="true")
+      {
+        localStorage.setItem("fob","logout");
+      }
+      else if(localStorage.getItem("loggedin")===null)
+      {
+        localStorage.setItem("fob","Login");
+      }
+      localStorage.setItem("fib","Users");
+      //localStorage.clear();
+      
+      localStorage.setItem("pageCondition", "login");
+      }
+      
+      )
+   
+  }
+
+  onToggleUpdate()
+  {
+    this.updateFlag = !this.updateFlag;
+  }
+
   onUpdate()
   {
    
@@ -68,10 +104,8 @@ export class HomeComponent implements OnInit {
       this.user = data[0];
       localStorage.setItem("user",JSON.stringify(data[0]));
       console.log(this.user);
-     
     },
     err => {
-      
     },
      () => {
        window.location.reload();

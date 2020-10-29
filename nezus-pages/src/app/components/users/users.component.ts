@@ -8,7 +8,9 @@ import { UserService } from '../../services/user.service'
 })
 export class UsersComponent implements OnInit {
   users:User[];
-  
+  buttonHide: boolean = false;
+  showUsersFlag: boolean = false;
+  showRegisterFlag:boolean = false;
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
@@ -22,5 +24,24 @@ export class UsersComponent implements OnInit {
     console.log(userId);
     this.userService.deleteUser(userId).subscribe();
     window.location.reload();
+  }
+  buttonReset()
+  {
+    this.buttonHide = false;
+    this.showUsersFlag = false;
+    this.showRegisterFlag = false;
+  }
+  showUsersToggle()
+  {
+    this.showUsersFlag = !this.showUsersFlag;
+    this.showRegisterFlag = false;
+    this.buttonHide = true;
+    
+  }
+  registerToggle()
+  {
+    this.showRegisterFlag = !this.showRegisterFlag;
+    this.showUsersFlag = false;
+    this.buttonHide = true;
   }
 }

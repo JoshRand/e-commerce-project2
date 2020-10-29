@@ -1,5 +1,5 @@
 header{
-    text-shadow: 2px 2px white;
+    text-shadow: 1px 1px white;
     background: lightgray;
     border-style:solid;
     border-color: lightblue;
@@ -17,7 +17,7 @@ h3{
     padding-right:20vw;
 }
 button{
-    text-shadow: 2px 2px white;
+    text-shadow: 1px 1px white;
     background-color:lightgray;
     border-color:transparent;
     font-style:italic;

@@ -37,7 +37,7 @@ app.post('/login', function (req, res)
 
 })
 
-app.get('/users', jwt({ 
+app.get('/admin', jwt({ 
     secret: sKey , algorithms: ['HS256'] }) ,function (req, res) {
     userDao.findById(req.user.userId).then(function(user){
         if(user[0].role == "admin")
@@ -65,8 +65,8 @@ app.get('/user', jwt({
 
 })
 
-app.post('/user/admin',function (req, res) {
-    userDao.addUser(req.body.data.userName, req.body.data.password, req.body.data.role);
+app.post('/admin',function (req, res) {
+    userDao.addUserAdmin(req.body.data.userName, req.body.data.password, req.body.data.role);
     res.send(req.body);
   })
 app.post('/user',function (req, res) {
@@ -83,7 +83,7 @@ app.patch('/user',jwt({
     }).catch((err) => setImmediate(() => { throw err; }));
 
 })
-app.patch('/user/admin',jwt({
+app.patch('/admin',jwt({
     secret: sKey , algorithms: ['HS256'] }) ,function (req, res) {
         console.log(req.user.userId + req.body.userName);
     // userDao.findById(req.user.userId).then(function(user) {
@@ -94,7 +94,23 @@ app.patch('/user/admin',jwt({
     // }).catch((err) => setImmediate(() => { throw err; }));
 
 })
+
 app.delete('/user',jwt({
+    secret: sKey , algorithms: ['HS256'] }) ,function (req, res) {
+        console.log("entering delete")
+        userDao.findById(req.user.userId).then(function(user){
+           
+            userDao.findById(req.body.deleteId).then(function(user){
+               
+                    userDao.deleteUser(req.body.deleteId);
+                    res.send(req.body);
+                   
+                }).catch((err) => setImmediate(() => { throw err; }));
+        
+    }).catch((err) => setImmediate(() => { throw err; }));
+})
+
+app.delete('/admin',jwt({
     secret: sKey , algorithms: ['HS256'] }) ,function (req, res) {
         console.log("entering delete")
         userDao.findById(req.user.userId).then(function(user){

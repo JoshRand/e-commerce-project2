@@ -27,8 +27,9 @@ export class RegisterComponent implements OnInit {
   }
   onSubmit()
   {
-    if(localStorage.getItem("role") === "user")
+    if(localStorage.getItem("role") === "user" || localStorage.getItem("role") === null)
     {
+      console.log("adding new User");
       this.userService.register(this.registerForm.value.uname,this.registerForm.value.pass).subscribe(json => {
       });
     }

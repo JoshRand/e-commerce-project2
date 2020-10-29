@@ -1,13 +1,38 @@
-td{
+td.field{
     background-color:lightblue;
     text-align:center;
     font-family: consolas;
+    box-shadow: 2px 2px teal;
+    border-radius: 10%;
+    background-color:lightblue;
 }
-button.del{
+button.del {
+    
+    box-shadow: 1px 1px teal;
     font-family: consolas;
     background-color: red;
+    border-radius: 30%;
+    width: 80px;
+    height: 40px;
+    font-weight: bold;
 }
 table{
+    margin-left: 7vw;
     font-family: consolas;
     width:100vw;
+}
+td{
+    padding-left:1vw;
+}
+button.show{
+    box-shadow: 1px 1px teal;
+    font-family: consolas;
+    margin-top:2vw;
+    margin-left:5vw;
+    background-color: lightyellow;
+    border-radius: 30%;
+    width: 80px;
+    height: 40px;
+    font-weight: bold;
+    
 }

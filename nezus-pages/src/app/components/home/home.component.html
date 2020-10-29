@@ -1,8 +1,8 @@
 <div>
   <h2>Welcome {{ name }}</h2>
-  <button *ngIf="toggleShowDetails" class="show" (click)="onShowDetails()">Show Details</button>
-  <button *ngIf="!toggleShowDetails" class="show" (click)="onShowDetails()">Hide Details</button>
-  <div *ngIf="toggleShowDetails">
+  <button *ngIf="!toggleShowDetails&&!updateFlag" class="show" (click)="onShowDetails()">Show Details</button>
+  <button *ngIf="toggleShowDetails&&!updateFlag" class="show" (click)="onShowDetails()">Hide Details</button>
+  <div *ngIf="toggleShowDetails&&updateFlag">
     <form [formGroup]="homeForm">
       <table>
         <thead>
@@ -31,8 +31,45 @@
           <td class="entry">
               <input  formControlName="role" disabled />
             </td>
-          <td>
+          <td class="button" >
             <button type="button" (click)="onUpdate()" class="submit">
+              Update
+            </button>
+          </td>
+          <td class="button">
+            <button type="button" (click)="onToggleUpdate()" class="submit">
+              Back
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  <div *ngIf="toggleShowDetails&&!updateFlag">
+    <form [formGroup]="homeForm">
+      <table>
+        <thead>
+            <tr>
+              <th>ID</th>
+              <th>UserName</th>
+            </tr>
+          </thead>
+          
+        <tr>
+          <td class="entry">
+            {{user.userId}}
+          </td>
+          <td class="entry">
+            {{user.userName}}
+          </td>
+          
+          <td class="button">
+            <button type="button" (click)="onDelete()" class="submit">
+              Delete
+            </button>
+          </td>
+          <td class="button">
+            <button type="button" (click)="onToggleUpdate()" class="submit">
               Update
             </button>
           </td>

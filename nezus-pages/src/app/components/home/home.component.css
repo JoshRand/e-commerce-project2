@@ -24,7 +24,6 @@ button.submit {
     width: 80px;
     height: 40px;
     font-weight: bold;
-    
 }
 h2{
     
@@ -49,9 +48,16 @@ form{
     padding-left: 10vw;
 }
 td.entry{
+    width:5vw;
+    text-align:center;
     box-shadow: 2px 2px teal;
     border-radius: 10%;
     background-color:lightblue;
+    padding-left:1vw;
+    padding-right:1vw;
+}
+td.button{
+    padding-left:2vw;
 }
 h2{
     text-align: center;

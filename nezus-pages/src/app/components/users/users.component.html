@@ -1,14 +1,28 @@
 <div>
-<table>
-    <thead>
-        <tr><th>ID</th><th>ROLE</th><th>NAME</th></tr>
-    </thead>
-   
+    <button *ngIf="!buttonHide" class="show" (click)="showUsersToggle()">Show Users</button>
+    <button *ngIf="!buttonHide" class="show" (click)="registerToggle()">Add new User</button>
+
+    <div *ngIf="showUsersFlag">
+        <button class="show" (click)="buttonReset()">Back</button>
+        <table >
+            
+            <thead>
+                <tr><th>ID</th><th>ROLE</th><th>NAME</th></tr>
+            </thead>
+           
             <tr *ngFor="let user of users" [user] = "user" >
-                <td>{{user.userId}}</td>
-                <td>{{user.role}}</td>
-                <td>{{user.userName}}</td>
+                <td  class="field">{{user.userId}}</td>
+                <td class="field">{{user.role}}</td>
+                <td class="field">{{user.userName}}</td>
                 <td><button class="del" (click)="deleteUser(user.userId)">DELETE</button></td>
             </tr>
-</table>
+        </table>
+    </div>
+
+
+
+<div *ngIf="showRegisterFlag">
+    <button class="show" (click)="buttonReset()">Back</button>
+    <app-register></app-register>
+  </div>
 </div>

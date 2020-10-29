@@ -15,7 +15,7 @@ export class MainComponent implements OnInit {
   //&& localStorage.getItem("loggedin")==="false")
   
   constructor() {
-    //localStorage.clear();
+  //localStorage.clear();
  
 }
 

@@ -80,7 +80,8 @@ class UserDao
      });
     }
     addUser(username,password){
-        var msg = 'insert users(username,password,role) value(\''+username+'\',\''+password+'\',\'user\')';
+        let user="user";
+        var msg = 'insert users(username,password,role) value(\''+username+'\',\''+password+'\', \''+user+'\')';
        try {
         con.query(msg,(err,rows) => {
             
@@ -95,7 +96,7 @@ class UserDao
            
        }
     }
-    addUser(username,password,role){
+    addUserAdmin(username,password,role){
         var msg = 'insert users(username,password,role) value(\''+username+'\',\''+password+'\',\''+role+'\')';
        try {
         con.query(msg,(err,rows) => {
