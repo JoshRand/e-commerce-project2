@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   user:User = JSON.parse(localStorage.getItem("user"));
   name:string = localStorage.getItem("userName");
   pass:string;
-  toggleShowDetails: boolean = true;
+  toggleShowDetails: boolean = false;
   public homeForm: FormGroup;
   userId:string;
   userName:string;

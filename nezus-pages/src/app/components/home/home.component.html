@@ -1,6 +1,7 @@
 <div>
   <h2>Welcome {{ name }}</h2>
-  <button class="show" (click)="onShowDetails()">Show Details</button>
+  <button *ngIf="toggleShowDetails" class="show" (click)="onShowDetails()">Show Details</button>
+  <button *ngIf="!toggleShowDetails" class="show" (click)="onShowDetails()">Hide Details</button>
   <div *ngIf="toggleShowDetails">
     <form [formGroup]="homeForm">
       <table>
