@@ -11,6 +11,7 @@ export class UsersComponent implements OnInit {
   buttonHide: boolean = false;
   showUsersFlag: boolean = false;
   showRegisterFlag:boolean = false;
+  profilePic:string = "../../../assets/";
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
