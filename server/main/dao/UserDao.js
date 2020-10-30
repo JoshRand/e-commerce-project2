@@ -81,7 +81,7 @@ class UserDao
     }
     addUser(username,password){
         let user="user";
-        var msg = 'insert users(username,password,role) value(\''+username+'\',\''+password+'\', \''+user+'\')';
+        var msg = 'insert users(username,password,role,profilepicture) value(\''+username+'\',\''+password+'\', \''+user+'\', \''+"defaultProfilePic.jpg"+'\')';
        try {
         con.query(msg,(err,rows) => {
             
@@ -97,7 +97,7 @@ class UserDao
        }
     }
     addUserAdmin(username,password,role){
-        var msg = 'insert users(username,password,role) value(\''+username+'\',\''+password+'\',\''+role+'\')';
+        var msg = 'insert users(username,password,role,profilepicture) value(\''+username+'\',\''+password+'\',\''+role+'\', \''+"defaultProfilePic.jpg"+'\')';
        try {
         con.query(msg,(err,rows) => {
             
