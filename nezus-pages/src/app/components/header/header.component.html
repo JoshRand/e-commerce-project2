@@ -1,13 +1,33 @@
 <div>
-<header *ngIf="!admin">
-    <br>
-    <h2>Nezus Pages Welcomes you! {{name}}</h2><h3><button (click)="onHome()">{{firstButton}}</button><button (click)="onContact()">{{secondButton}}</button><button (click)="onRegister()">{{thirdButton}}</button><button (click)="onLogin()">{{fourthButton}}</button></h3>
-    <br>
-</header>
-<header *ngIf="admin">
-    <br>
-    <h2>Nezus Pages Welcomes you! {{name}}</h2><h3><button (click)="onHome()">{{firstButton}}</button><button (click)="onContact()">{{secondButton}}</button><button (click)="onRegister()">{{thirdButton}}</button><button (click)="onLogin()">{{fourthButton}}</button><button (click)="onUsers()">{{fifthButton}}</button></h3>
-    <br>
-</header>
-
+    <header *ngIf="!admin">
+        <br />
+        <h2>Nezus Pages Welcomes you!</h2>
+        <h3 class="nameimg">
+            <div clase="container">
+                <img *ngIf="profilePicDefault" [src]="profilepic" width="70" height="70" />{{ name }}
+            </div>
+        </h3>
+        <h3>
+            <button (click)="onHome()">{{ firstButton }}</button><button
+                (click)="onContact()">{{ secondButton }}</button><button
+                (click)="onRegister()">{{ thirdButton }}</button><button (click)="onLogin()">{{ fourthButton }}</button>
+        </h3>
+        <br />
+    </header>
+    <header *ngIf="admin">
+        <br />
+        <h2>Nezus Pages Welcomes you!</h2>
+        <h3 class="nameimg">
+            <div clase="container">
+                <img *ngIf="profilePicDefault" [src]="profilepic" width="70" height="70" />{{ name }}
+            </div>
+        </h3>
+        <h3>
+            <button (click)="onHome()">{{ firstButton }}</button><button
+                (click)="onContact()">{{ secondButton }}</button><button
+                (click)="onRegister()">{{ thirdButton }}</button><button
+                (click)="onLogin()">{{ fourthButton }}</button><button (click)="onUsers()">{{ fifthButton }}</button>
+        </h3>
+        <br />
+    </header>
 </div>

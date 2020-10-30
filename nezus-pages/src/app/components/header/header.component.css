@@ -12,9 +12,20 @@ header{
     margin-right: auto;
     box-shadow:5px  10px #ebf5ff;
 }
+h3.nameimg{
+    text-align:right;
+    padding-right:8vw;
+    
+}
+img{
+    position: relative;
+    border-radius: 50%;
+    margin-right: 1vw;
+    vertical-align: middle;
+}
 h3{
     text-align:right;
-    padding-right:20vw;
+    padding-right:15vw;
 }
 button{
     text-shadow: 1px 1px white;
@@ -24,4 +35,11 @@ button{
     font-family:consolas;
     font-size:20px;
     cursor:grab;
+}
+.mid-left{
+ 
+}
+.container{
+    position: relative;
+    display: inline-block;
 }
