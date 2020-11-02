@@ -7,6 +7,7 @@
       <table>
         <thead>
             <tr>
+              <th>PIC</th>
               <th>ID</th>
               <th>UserName</th>
               <th>Password</th>
@@ -16,6 +17,7 @@
           </thead>
           
         <tr>
+          <td><img src={{profilePic+user.profilePicture}} width="70" height="70" /></td>
           <td class="entry">
             <input formControlName="userId" disabled />
           </td>
@@ -43,19 +45,31 @@
           </td>
         </tr>
       </table>
+      <br>
+      <br>
+      <h3>Upload a profile pic?</h3>
+      
     </form>
+
+    <form>
+      <input class="file-upload" type="file" id="pic" (change)="onFileChanged($event)" enctype="multipart/form-data"  #fileInput>
+      <input type="submit" (click)="saveFile()">
+    </form>
+
   </div>
-  <div *ngIf="toggleShowDetails&&!updateFlag">
-    <form [formGroup]="homeForm">
+  <div *ngIf="toggleShowDetails&&!updateFlag" class="detail">
+   
       <table>
         <thead>
             <tr>
+              <th>PIC</th>
               <th>ID</th>
               <th>UserName</th>
             </tr>
           </thead>
           
         <tr>
+          <td><img src={{profilePic+user.profilePicture}} width="70" height="70" /></td>
           <td class="entry">
             {{user.userId}}
           </td>
@@ -75,6 +89,5 @@
           </td>
         </tr>
       </table>
-    </form>
   </div>
 </div>

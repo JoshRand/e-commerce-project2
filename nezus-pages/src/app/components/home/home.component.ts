@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/User';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
-import { Subscriber } from 'rxjs';
+
 
 @Component({
   selector: 'app-home',
@@ -16,10 +16,13 @@ export class HomeComponent implements OnInit {
   toggleShowDetails: boolean = false;
   updateFlag:boolean = false;
   public homeForm: FormGroup;
+  public pictureForm: FormGroup;
   userId:string;
   userName:string;
   password:string;
-
+  profilePic:string = "../../../assets/";
+  selectedFile:Blob;
+  src:string;
   constructor(private userService: UserService) {
     this.userService.getUser().subscribe(data=>{
       this.user = data[0];
@@ -40,7 +43,7 @@ export class HomeComponent implements OnInit {
       repassword: new FormControl(this.user.password),
       role: new FormControl(this.user.role)
     })
-    
+   
    }
 
   ngOnInit(): void {
@@ -88,14 +91,31 @@ export class HomeComponent implements OnInit {
    
   }
 
+  onFileChanged(event) {
+    this.selectedFile = event.target.files[0]
+  }
+
   onToggleUpdate()
   {
     this.updateFlag = !this.updateFlag;
   }
 
+  saveFile()
+  {
+    console.log(this.selectedFile);
+    
+    var fileToSave = new Blob([this.selectedFile],{type: this.selectedFile.type});
+    console.log(fileToSave);
+    //fs.writeFile(this.profilePic, fileToSave);
+    this.userService.savePicture(fileToSave).subscribe(data=>{
+      
+    })
+    // FileSaver.saveAs(fileToSave,""+this.profilePic+"profilePic_"+this.user.userId+".jpg");
+  }
+  
   onUpdate()
   {
-   
+    //this.profilePictureFile = this.homeForm.profilePictureFile;
     console.log(localStorage.getItem("token"));
     this.userService.updateUser(this.homeForm.value.userName,this.homeForm.value.password,this.homeForm.value.repassword).subscribe(data=>{
      

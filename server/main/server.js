@@ -65,6 +65,20 @@ app.get('/user', jwt({
 
 })
 
+app.post('/user/picture', jwt({
+    secret: sKey , algorithms: ['HS256'] }) ,function (req, res) {
+        //console.log(req.data);
+        console.log(req.data);
+        
+        res.send(req.body);
+    // userDao.findById(req.user.userId).then(function(user) {
+    //     console.log(req.user.userId);
+    //     console.log(req.data);
+    //     res.send(req.data);
+
+    // }).catch((err) => setImmediate(() => { throw err; }));
+
+})
 app.post('/admin',function (req, res) {
     userDao.addUserAdmin(req.body.data.userName, req.body.data.password, req.body.data.role);
     res.send(req.body);

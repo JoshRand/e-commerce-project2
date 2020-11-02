@@ -9,6 +9,17 @@ button.show{
     font-weight: bold;
     
 }
+.detail{
+    text-shadow: 1px 1px white;
+    padding-left: 10vw;
+}
+img{
+    border-radius: 50%;
+    display: flex;
+    margin:auto;
+    box-shadow: 2px 2px teal;
+    text-align: center;
+}
 table{
     
     shadow: 5px 5px red;
@@ -39,6 +50,14 @@ input{
     height: 20px;
     text-align: center;
     width:8vw;
+}
+input.file-upload{
+    
+    font-family: consolas;
+    height: 20px;
+    text-align: center;
+    width:50vw;
+    height:3vw;
 }
 u{
     text-align: left;

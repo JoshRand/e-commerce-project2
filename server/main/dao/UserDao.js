@@ -1,4 +1,4 @@
-
+import fs from 'fs';
 import mysql from 'mysql';
 const con = mysql.createConnection({
     host: 'localhost',
@@ -25,6 +25,12 @@ class UserDao
     testFunction()
     {
         console.log("heyya");
+    }
+
+    savePicture(userId,blob)
+    {
+        var path = "../assets/profile_pic_user_"+userId;
+        console.log(blob);
     }
 
     userLogin(userName, password)
