@@ -14,6 +14,8 @@ export class UsersComponent implements OnInit {
   profilePic:string = "../../../assets/";
   constructor(private userService: UserService) { }
 
+ 
+
   ngOnInit(): void {
     this.userService.getUsers().subscribe(users => {
       this.users = users;

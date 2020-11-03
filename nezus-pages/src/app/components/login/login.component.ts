@@ -40,6 +40,9 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('pageCondition','home');
       localStorage.setItem('fob', "logout");
       localStorage.setItem("loggedin","true");
+      localStorage.setItem("profilePic",json.profilePicture);
+
+      console.log(localStorage.getItem("profilePic"));
       window.location.reload();
     });
   }

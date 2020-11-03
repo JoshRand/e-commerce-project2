@@ -1,5 +1,6 @@
 import fs from 'fs';
 import mysql from 'mysql';
+import { resolve } from 'path';
 const con = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -26,11 +27,51 @@ class UserDao
     {
         console.log("heyya");
     }
+    getProfilePic(userId)
+    { 
+        return new Promise((resolve,reject)=>{
+            try {
+                con.query('select * from users where userId=\''+userId+'\';',(err,users) => {
+                    var path = "../main/assets/"+users[0].profilePicture;
+                    console.log(users[0].profilePicture);
+                    console.log(path);
+                    fs.readFile(path,'base64',function(err,result){
+                        //console.log(result);
+                        resolve(result);
 
-    savePicture(userId,blob)
+                    });
+                   
+                })
+            }catch(error){
+
+            }
+        });
+    
+    }
+    savePicture(userId,data)
     {
-        var path = "../assets/profile_pic_user_"+userId;
-        console.log(blob);
+        console.log("Data from picture = " + data);
+        var pictureName = "profile_pic_user_"+userId+".jpg"
+        var path = "../main/assets/"+pictureName;
+        const dataPic = data.replace(/^data:.*,/,'');
+        console.log(dataPic);
+        fs.writeFile(path,dataPic,'base64', function(err,result){
+            if(err)
+            {
+                console.log(err);
+            }
+            else
+            {
+
+            }
+        });
+        var msg = 'update users set profilePicture=\''+pictureName+'\' where userId=\''+userId+'\';';
+        con.query(msg,(err,rows) => {
+            if(err)
+                console.log("error updating user");
+            else
+                console.log("successfully updated user");
+        });
     }
 
     userLogin(userName, password)
@@ -46,7 +87,7 @@ class UserDao
             } catch (error) {
                 
             }
-     });
+        });
     }
 
     findById(userId)

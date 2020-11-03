@@ -17,7 +17,7 @@
           </thead>
           
         <tr>
-          <td><img src={{profilePic+user.profilePicture}} width="70" height="70" /></td>
+          <td><img [src]="profilePic" width="70" height="70" /></td>
           <td class="entry">
             <input formControlName="userId" disabled />
           </td>
@@ -51,8 +51,8 @@
       
     </form>
 
-    <form>
-      <input class="file-upload" type="file" id="pic" (change)="onFileChanged($event)" enctype="multipart/form-data"  #fileInput>
+    <form [formGroup] = "pictureForm">
+       <input class="file-upload" type="file" (change)="onFileChange($event)"> 
       <input type="submit" (click)="saveFile()">
     </form>
 
@@ -69,7 +69,7 @@
           </thead>
           
         <tr>
-          <td><img src={{profilePic+user.profilePicture}} width="70" height="70" /></td>
+          <td><img [src]="profilePic" width="70" height="70" /></td>
           <td class="entry">
             {{user.userId}}
           </td>

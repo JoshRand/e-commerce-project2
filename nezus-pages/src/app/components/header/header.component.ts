@@ -11,7 +11,7 @@ export class HeaderComponent implements OnInit {
   admin:boolean = (localStorage.getItem("role") === "admin");
   user:User = JSON.parse(localStorage.getItem('user'));
   name:string = localStorage.getItem("userName");
-  profilePicturePath= "../../../assets/";
+  profilePicturePath = localStorage.getItem("profilePic");
   profilepic:string;// = this.profilePicturePath + "defaultProfilePic.jgp";
   profilePicDefault:boolean = true && localStorage.getItem("role") !== null;
   firstButton:string = localStorage.getItem("fb");
@@ -26,8 +26,8 @@ export class HeaderComponent implements OnInit {
     // fourthButton = localStorage.getItem("fob");
     userService.getUser().subscribe(data => {
       
-        this.profilepic = this.profilePicturePath + data[0].profilePicture;
-        console.log(this.profilepic);
+        this.profilepic = data.profilePicture;
+        //console.log(this.profilepic);
    
     })
    

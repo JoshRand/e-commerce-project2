@@ -64,21 +64,18 @@ export class UserService {
 
   savePicture(blob)
   {
-    const uploadData = new FormData();
-    uploadData.append('myFile',blob, blob.name);
-  
     this.token = localStorage.getItem("token");
-    console.log(blob);
+    //console.log(blob);
     const data = {
-      "blob":{blob}
+      "picture":blob
     }
-    console.log(data);
+    //console.log(data);
+     
      const headers = new HttpHeaders()
            .set('Authorization', 'Bearer '+this.token)
            .set('Content-Type', 'application/json');
-           //.set('responseType','blob' as 'json');
-     const config = {headers};
-     return this.http.post<any>(USER_API_REQUEST_ROUTE+"/picture",data ,config);
+     const config = {headers,data};
+     return this.http.post<any>(USER_API_REQUEST_ROUTE+"/picture", data, config);
   }
 
   updateUser(userName, password, repassword):Observable<User>

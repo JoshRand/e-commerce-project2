@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/User';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators  } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 
 
@@ -20,14 +20,20 @@ export class HomeComponent implements OnInit {
   userId:string;
   userName:string;
   password:string;
-  profilePic:string = "../../../assets/";
+  profilePic:string;
   selectedFile:Blob;
   src:string;
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private fb: FormBuilder) {
+   
+ 
     this.userService.getUser().subscribe(data=>{
-      this.user = data[0];
-      localStorage.setItem("user",JSON.stringify(data[0]));
+      this.profilePic = data.profilePicture;
+      this.user = data.user;
+      console.log(data);
+      localStorage.setItem("user",JSON.stringify(data));
       console.log(this.user);
+      
+      //this.profilePic=data.profilePicture;
      
     },
     err => {
@@ -43,18 +49,17 @@ export class HomeComponent implements OnInit {
       repassword: new FormControl(this.user.password),
       role: new FormControl(this.user.role)
     })
+    this.pictureForm = this.fb.group({
+      file: [null, Validators.required]
+    });
    
    }
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem("user"));
     this.name = localStorage.getItem("userName");
+    this.profilePic = localStorage.getItem("profilePic");
     
-    // this.userService.getUser().subscribe(data=>{
-    //   this.user = data[0];
-    //  // localStorage.setItem("user",JSON.parse(data[0]))
-    //   console.log(this.user);
-    // })
   }
   onShowDetails()
   {
@@ -91,10 +96,21 @@ export class HomeComponent implements OnInit {
    
   }
 
-  onFileChanged(event) {
-    this.selectedFile = event.target.files[0]
+  public onFileChange(event) {
+    const reader = new FileReader();
+ 
+    if (event.target.files && event.target.files.length) {
+      //this.fileName = event.target.files[0].name;
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+     
+      reader.onload = () => {
+        this.pictureForm.patchValue({
+          file: reader.result
+        });
+      };
+    }
   }
-
   onToggleUpdate()
   {
     this.updateFlag = !this.updateFlag;
@@ -102,15 +118,20 @@ export class HomeComponent implements OnInit {
 
   saveFile()
   {
-    console.log(this.selectedFile);
-    
-    var fileToSave = new Blob([this.selectedFile],{type: this.selectedFile.type});
-    console.log(fileToSave);
-    //fs.writeFile(this.profilePic, fileToSave);
-    this.userService.savePicture(fileToSave).subscribe(data=>{
-      
+    // console.log(this.selectedFile);
+    // console.log(this.pictureForm.get('file').value);
+    this.userService.savePicture(this.pictureForm.get('file').value).subscribe(data=>{
+      //console.log(data);
+      localStorage.setItem('profilePic',data.picture);
+      //console.log(localStorage.getItem('profilePic'));
+      this.profilePic = data.picture;
+
+    },err=>{
+
+    },()=>{
+      window.location.reload();
     })
-    // FileSaver.saveAs(fileToSave,""+this.profilePic+"profilePic_"+this.user.userId+".jpg");
+   
   }
   
   onUpdate()
