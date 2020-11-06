@@ -76,6 +76,41 @@ app.get('/admin', jwt({
     })
 })
 
+app.get('/admin/pictures', jwt({ 
+    secret: sKey , algorithms: ['HS256'] }) ,function (req, res) {
+    var path = "../main/assets/";
+    userDao.findById(req.user.userId).then(function(user){
+        if(user[0].role == "admin")
+        {
+            userDao.getUsers().then(function(rows) {
+                    
+                fs.readdir(path,function(err,result){
+                    result.forEach(filename => {
+                        fs.readFile(filename,'base64',function(res){
+                            console.log(res);
+
+
+                        })
+                    });
+                    // rows.forEach(element => {
+                    //     element.profilePicture = "data:image/jpeg;base64,"+result;
+                    //     console.log(element.profilePicture);
+                    // });
+                    // console.log(rows);
+                   
+            
+                    })
+                    res.status(200).json(rows);
+            }).catch((err) => setImmediate(() => { throw err; }));
+            
+            }
+            else
+            {
+                res.status(400).send("Not an admin");
+            }
+
+    })
+})
 app.get('/user', jwt({
     secret: sKey , algorithms: ['HS256'] }) ,function (req, res) {
     userDao.findById(req.user.userId).then(function(user) {
