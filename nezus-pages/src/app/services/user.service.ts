@@ -61,6 +61,16 @@ export class UserService {
 
     return this.http.get<any>(USER_API_REQUEST_ROUTE, config);
   }
+  getPictures():Observable<any> {
+    this.token = localStorage.getItem("token");
+    const headers = new HttpHeaders()
+          .set('Authorization', 
+          'Bearer '+this.token)
+          .set('Content-Type', 'application/json');
+    const config = {headers};
+
+    return this.http.get<any>(ADMIN_API_REQUEST_ROUTE+"/pictures", config);
+  }
 
   savePicture(blob)
   {
